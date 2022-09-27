@@ -1,5 +1,9 @@
 ﻿@page "/counter"
 
+@using JobSchedulerClassLibrary
+
+@inject ILogger<JobSchedulerClass> logger
+
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
@@ -14,5 +18,14 @@
     private void IncrementCount()
     {
         currentCount++;
+
+        JobSchedulerClass job = new JobSchedulerClass(logger);
+
+        CancellationToken st = new CancellationToken(true);
+        job.StopAsync(st);
+
+        //await job.OnOf();
     }
+
+
 }
